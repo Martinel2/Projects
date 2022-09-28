@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>꼬인 계획표 풀기</title>
+    <style>
+        .title{font-weight: bold; font-size: 24px; text-align: center}.S{display: inline-block; position: relative; background-image: url("todo.png");  background-size: cover; width: 450px; height: 600px;}
+        .To-do{font-size: 18px; position: absolute; top: 23%; left:10%;}.to_text{display: inline-block; position: relative; width: 350px; height: 600px; border: solid #0a0a0a; margin-left: 50px; left: 100%}To_Box{position: relative; width: 30px; height:20px; resize: none}
+    </style>
+</head>
+<body>
+<h1 class = "title">하루 계획표</h1>
+<div class = "S">
+    <!-- 해야할일 리스트 뼈대 -->
+    <a class = "To-do">
+        <ul id = "list">
+            <!-- <li>부분은 나중에 자바스크립트로 입력값 받아내기 -- 성공!! -->
+        </ul>
+    </a>
+    <div class = "to_text">
+        <form>
+            <p><input type ="text" id = "To_Box" placeholder="입력" ></p>
+            <p id = "TOSubmit"><input type = "button" value = "확인"></p>
+        </form>
+    </div>
+</div>
+<script src="./todo_list.js"></script>
+</body>
+</html>
