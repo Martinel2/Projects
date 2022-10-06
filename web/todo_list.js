@@ -1,30 +1,38 @@
-var ToS = document.getElementById('TOSubmit');
-var do_box = document.getElementById('To_DBox');
-var clock_box = document.getElementById('To_CBox');
-var pref_box = document.getElementById('To_PBox');
-var reg_clock = /^([0-9]|[01][0-9]|2[0-3]):([0-9]|[0-5][0-9])$/; //시간형식
-///버튼 클릭시
+const ToS = document.getElementById('TOSubmit');
+const do_box = document.getElementById('To_DBox');
+const clock_box = document.getElementById('To_CBox');
+const pref_box = document.getElementById('To_PBox');
+const reg_clock = /^([0-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/; //시간형식
+const del = [];
+let size = 0;
+///확인버튼 클릭시
 ToS.addEventListener('click', function (){
 
-    var do_text = document.getElementById('To_DBox').value;//할 일 입력
-    var clock_text = document.getElementById('To_CBox').value;//시간 입력
-    var pref_clo = document.getElementById('To_PBox').value;//선호시간
-    if(clock_text.match(reg_clock) != null && pref_clo.match(reg_clock) != null)//형식에 맞다면
-    {
-        //리스트에 순서대로 적기
-        var to__list = document.getElementById("list");
-        to__list.innerHTML += '<li>' + "할 일 : " + do_text + "        수행 시간 :  " + clock_text + "        선호 시간 : " + pref_clo + '</li>';
-        //출력했으니 비워주기
-        document.getElementById('To_DBox').value = "";
-        document.getElementById('To_CBox').value = "";
-        document.getElementById('To_PBox').value = "";
+    const do_text = document.getElementById('To_DBox').value;//할 일 입력
+    const clock_text = document.getElementById('To_CBox').value;//시간 입력
+    const pref_clo = document.getElementById('To_PBox').value;//선호시간
+    const text = do_text + "\t수행 시간 :  " + clock_text + "\t선호 시간 : " + pref_clo + "     ";
+    if (!document.getElementById('To_DBox').value === false) {
+        if (clock_text.match(reg_clock) != null && pref_clo.match(reg_clock) != null)//형식에 맞다면
+        {
+            //리스트에 순서대로 적기
+            add(text);
+            //출력했으니 비워주기
+            document.getElementById('To_DBox').value = "";
+            document.getElementById('To_CBox').value = "";
+            document.getElementById('To_PBox').value = "";
+            document.getElementById('To_DBox').focus();
+        } else//형식에 맞지 않으면
+            alert("시간형식이 올바르지 않습니다!");
+    } else {
+        alert("할 일이 적혀있지않습니다!");
         document.getElementById('To_DBox').focus();
     }
-    else//형식에 맞지 않으면
-        alert("시간형식이 올바르지 않습니다!");
+
 
 });
 ///
+
 ///엔터키로 편하게 적기
 do_box.addEventListener("keyup", function () {
     if(event.keyCode === 13)
@@ -39,20 +47,21 @@ pref_box.addEventListener('keyup', function () {
         document.getElementById('TOSubmit').click();
 })
 ///
+
 ///수면시간
-var slp = document.getElementById('slp-Submit');
-var slp_clock = document.getElementById('slp-CBox');
-var pref_slp_box = document.getElementById('slp-PBox');
+const slp = document.getElementById('slp-Submit');
+const slp_clock = document.getElementById('slp-CBox');
+const pref_slp_box = document.getElementById('slp-PBox');
 ///버튼 클릭시
 slp.addEventListener('click', function (){
 
-    var slp_clo_text = document.getElementById('slp-CBox').value;//시간 입력
-    var pref_slp = document.getElementById('slp-PBox').value;
+    const slp_clo_text = document.getElementById('slp-CBox').value;//시간 입력
+    const pref_slp = document.getElementById('slp-PBox').value;
+    const text = "숙면" + "\t수행 시간 :  " + slp_clo_text + "\t선호 시간 : " + pref_slp + "     ";
     if(slp_clo_text.match(reg_clock) != null && pref_slp.match(reg_clock) != null)//형식에 맞다면
     {
         //리스트에 순서대로 적기
-        var to__list = document.getElementById("list");
-        to__list.innerHTML += '<li>' + "할 일 : " + "숙면" + "        수행 시간 :  " + slp_clo_text + "        선호 시간 : " + pref_slp + '</li>';
+        add(text);
         //출력했으니 비워주기
         document.getElementById('slp-CBox').value = "";
         document.getElementById('slp-PBox').value = "";
@@ -62,6 +71,7 @@ slp.addEventListener('click', function (){
 
 });
 ///
+
 ///엔터키로 편하게 적기
 slp_clock.addEventListener("keyup", function () {
     if(event.keyCode === 13)
@@ -75,20 +85,19 @@ pref_slp_box.addEventListener('keyup', function () {
 ///
 
 ///아침시간
-var brf = document.getElementById('brf-Submit');
-var brf_clock = document.getElementById('brf-CBox');
-var pref_brf_box = document.getElementById('brf-PBox');
+const brf = document.getElementById('brf-Submit');
+const brf_clock = document.getElementById('brf-CBox');
+const pref_brf_box = document.getElementById('brf-PBox');
 ///버튼 클릭시
 brf.addEventListener('click', function (){
 
-    var brf_text = document.getElementById('brf-CBox').value;//시간 입력
-    var pref_brf = document.getElementById('brf-PBox').value;
-
+    const brf_text = document.getElementById('brf-CBox').value;//시간 입력
+    const pref_brf = document.getElementById('brf-PBox').value;
+    const text = "아침식사" + "\t수행 시간 :  " + brf_text + "\t선호 시간 : " + pref_brf + "     ";
     if(brf_text.match(reg_clock) != null && pref_brf.match(reg_clock) != null)//형식에 맞다면
     {
         //리스트에 순서대로 적기
-        var to__list = document.getElementById("list");
-        to__list.innerHTML += '<li>' + "할 일 : " + "아침식사" + "        수행 시간 :  " + brf_text + "        선호 시간 : " + pref_brf + '</li>';
+        add(text);
         //출력했으니 비워주기
         document.getElementById('brf-CBox').value = "";
         document.getElementById('brf-PBox').value = "";
@@ -99,6 +108,7 @@ brf.addEventListener('click', function (){
 
 });
 ///
+
 ///엔터키로 편하게 적기
 brf_clock.addEventListener("keyup", function () {
     if(event.keyCode === 13)
@@ -111,20 +121,19 @@ pref_brf_box.addEventListener("keyup", function () {
 ///
 
 ///점심시간
-var lun = document.getElementById('lun-Submit');
-var lun_clock = document.getElementById('lun-CBox');
-var pref_lun_box = document.getElementById('lun-PBox');
+const lun = document.getElementById('lun-Submit');
+const lun_clock = document.getElementById('lun-CBox');
+const pref_lun_box = document.getElementById('lun-PBox');
 ///버튼 클릭시
 lun.addEventListener('click', function (){
 
-    var lun_text = document.getElementById('lun-CBox').value;//시간 입력
-    var pref_lun = document.getElementById('lun-PBox').value;
-
+    const lun_text = document.getElementById('lun-CBox').value;//시간 입력
+    const pref_lun = document.getElementById('lun-PBox').value;
+    const text = "점심식사" + "\t수행 시간 :  " + lun_text + "\t선호 시간 : " + pref_lun + "     ";
     if(lun_text.match(reg_clock) != null && pref_lun.match(reg_clock) != null)//형식에 맞다면
     {
         //리스트에 순서대로 적기
-        var to__list = document.getElementById("list");
-        to__list.innerHTML += '<li>' + "할 일 : " + "점심식사" + "        수행 시간 :  " + lun_text + "        선호 시간 : " + pref_lun + '</li>';
+        add(text);
         //출력했으니 비워주기
         document.getElementById('lun-CBox').value = "";
         document.getElementById('lun-PBox').value = "";
@@ -135,6 +144,7 @@ lun.addEventListener('click', function (){
 
 });
 ///
+
 ///엔터키로 편하게 적기
 lun_clock.addEventListener("keyup", function () {
     if(event.keyCode === 13)
@@ -147,20 +157,19 @@ pref_lun_box.addEventListener("keyup", function () {
 ///
 
 ///저녁시간
-var din = document.getElementById('din-Submit');
-var din_clock = document.getElementById('din-CBox');
-var pref_din_box = document.getElementById('din-PBox')
+const din = document.getElementById('din-Submit');
+const din_clock = document.getElementById('din-CBox');
+const pref_din_box = document.getElementById('din-PBox')
 ///버튼 클릭시
 din.addEventListener('click', function (){
 
-    var din_text = document.getElementById('din-CBox').value;//시간 입력
-    var pref_din = document.getElementById('din-PBox').value;
-
+    const din_text = document.getElementById('din-CBox').value;//시간 입력
+    const pref_din = document.getElementById('din-PBox').value;
+    const text ="저녁식사" + "\t수행 시간 :  " + din_text + "\t선호 시간 : " + pref_din + "     ";
     if(din_text.match(reg_clock) != null && pref_din.match(reg_clock) != null)//형식에 맞다면
     {
         //리스트에 순서대로 적기
-        var to__list = document.getElementById("list");
-        to__list.innerHTML += '<li>' + "할 일 : " + "저녁식사" + "        수행 시간 :  " + din_text + "        선호 시간 : " + pref_din + '</li>';
+        add(text);
         //출력했으니 비워주기
         document.getElementById('din-CBox').value = "";
         document.getElementById('din-PBox').value = "";
@@ -170,6 +179,7 @@ din.addEventListener('click', function (){
 
 });
 ///
+
 ///엔터키로 편하게 적기
 din_clock.addEventListener("keyup", function () {
     if(event.keyCode === 13)
@@ -180,3 +190,44 @@ pref_din_box.addEventListener("keyup", function () {
         document.getElementById('din-Submit').click();
 });
 ///
+
+
+////////////함수////////////////
+///추가
+function add(text){
+    const li = document.createElement("li");
+    li.setAttribute('id',text);
+    const textNode = document.createTextNode(text);
+    li.appendChild(textNode);
+    const BT = document.createElement("button");
+    const BT_text = document.createTextNode('-');
+    BT.appendChild(BT_text);
+    ///특정 일정만 제거 or 변경
+    del.push(size.valueOf());
+    const del_num = size.valueOf();
+    size++;
+    document.getElementById('list').appendChild(li).appendChild(BT);
+    BT.addEventListener('click' , function () {
+        const ul = document.getElementById('list');
+        const items = ul.getElementsByTagName('li');
+        if(items.length > 0)
+        {
+            items[del.indexOf(del_num)].remove();
+            del.splice(del.indexOf(del_num),1);
+            ul.removeChild(BT);
+        }
+        else
+            alert("error");
+    });
+    ///
+}
+///
+
+///제거
+const Del = document.getElementById('del_bt');
+Del.addEventListener('click', function () {
+    const to__list = document.getElementById('list');
+    to__list.remove();
+})
+///
+
