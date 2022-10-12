@@ -4,68 +4,77 @@
     <meta charset="UTF-8">
     <title>계획표 대신 짜기</title>
     <style>
-        .title{font-weight: bold; font-size: 24px; text-align: center}#todo_tit{display: inline-block; font-size: 20px; margin-left: 250px}.To-do{display: inline-block; position: absolute; border: solid #0a0a0a;  font-size: 18px; width: 550px; height: 600px; max-height: none; margin-left: 20px; bottom: 11%}#del_bt{display: inline-block; position: absolute; margin-left: 470px; top: 5%}.to_text{display: inline-block; position: relative; width: 550px; height: 600px; border: solid #0a0a0a; margin-left: 900px; bottom:8%}
+        #todo_tit{display: inline-block; font-size: 20px; margin-left: 250px}.To-do{display: inline-block; position: absolute; border: solid #0a0a0a;  font-size: 18px; width: 550px; height: 600px; max-height: none; margin-left: 175px; margin-bottom: 100px; overflow: auto;}#del_bt{display: inline-block; position: absolute; margin-left: 470px; top: 5%}.to_text{display: inline-block; position: absolute; width: 550px; height: 600px; border: solid #0a0a0a; margin-left: 800px; margin-bottom: 100px;}
         #To_DBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 30px} #To_CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 150px;}#TOSubmit{position: absolute; width: 50px; height: 25px; margin-left: 400px}
         #emp-clock{font-size: 20px; font-weight: bolder;}#To_PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 270px;}  #slp-clock{font-size: 20px; font-weight: bolder; margin-top: 100px}.eat-clock{font-size: 20px; font-weight: bolder; margin-left: 50px; margin-top: 100px}
         #slp-CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 30px}#slp-Submit{position: absolute; width: 50px; height: 25px; margin-left: 280px;}#slp-PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 150px;}
         #brf-CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 5px;}#brf-Submit{position: absolute; width: 50px; height: 25px; margin-left: 250px;}#brf-PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 125px;}
         #lun-CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 5px; margin-top: 40px}#lun-Submit{position: absolute; width: 50px; height: 25px; margin-left: 250px; margin-top: 40px}#lun-PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 125px; margin-top: 40px}
         #din-CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 5px; margin-top: 80px}#din-Submit{position: absolute; width: 50px; height: 25px; margin-left: 250px; margin-top: 80px}#din-PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 125px; margin-top: 80px}
-        #brf_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 157px}#lun_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 117px}#din_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 77px}#eat_Text{margin-left: -50px;}#slp-gur{margin-left: 375px}
+        #brf_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 155px}#lun_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 115px}#din_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 75px}#eat_Text{margin-left: -50px;}#slp-gur{margin-left: 375px}
+        #lets{display: inline-block; background-color: #c0f7df; position: absolute; width: 1000px; height: 30px; margin-top: 650px; margin-left: 265px; text-align: center;}.S{opacity: 1; transition-duration: 1s; transition-property: opacity;}#loading{height: 600px;}#load_image{height: 300pt; width: 300pt; margin-left: 560px;}#load_text{position: absolute; font-weight: bold; font-size: 24px; margin-left: 710px}
+        #sort_sp{position: absolute; margin-left: 430px}#list{margin-top: 70px;}
     </style>
 </head>
 <body>
-<h1 class = "title">하루 계획표</h1>
-<div class = "S">
+<div class = "S" draggable="false">
     <!-- 해야할일 리스트 뼈대 -->
     <a class = "To-do">
-        <h1 id = "todo_tit">일정표</h1>
+        <h2 id = "todo_tit">일정표</h2>
+        <p><input type = "button" id = "del_bt"  value = "모두 삭제" ></p>
+        <p><input type = "button" id = "sort_sp" value="시간순으로 정렬"></p>
         <ul id = "list">
             <!-- <li>부분은 나중에 자바스크립트로 입력값 받아내기 -- 성공!! -->
+
         </ul>
 
-        <p><input type = "button" id = "del_bt"  value = "모두 삭제" ></p>
+
     </a>
-    <div class = "to_text">
+    <div class = "to_text" >
         <ul id="emp-clock"><li> 시간 형식은 00:00~23:59   (0-9 : 00-59도 가능)</li></ul>
         <form>
             <p><input type ="text" id = "To_DBox" placeholder="할 일 입력" maxlength="20"></p>
-            <p><input type ="text" id = "To_CBox" placeholder="일을 수행할 시간" maxlength="5"></p>
-            <p><input type ="text" id = "To_PBox" placeholder="일하기를 선호하는 시간" maxlength="5"></p>
+            <p><input type ="text" id = "To_CBox" placeholder="시작 시간" maxlength="5"></p>
+            <p><input type ="text" id = "To_PBox" placeholder="종료 시간" maxlength="5"></p>
             <p><input type = "button" id = "TOSubmit" value = "추가"></p>
         </form>
         <ul id = "slp-clock"><li>수면 시간 입력</li></ul>
         <form>
-            <p><input type ="text" id = "slp-CBox" placeholder="잠자는 시간" maxlength="5"></p>
-            <p><input type ="text" id = "slp-PBox" placeholder="선호하는 시간" maxlength="5"></p>
+            <p><input type ="text" id = "slp-CBox" placeholder="취침 시간" maxlength="5"></p>
+            <p><input type ="text" id = "slp-PBox" placeholder="기상 시간" maxlength="5"></p>
             <p><input type = "button" id = "slp-Submit" value = "확인"></p>
             <p id = "slp-gur">시간 보장  <input type = "checkbox"></p>
         </form>
         <div class = "eat-clock">
             <div id = "eat_Text">
                 <ul><li>식사 시간 입력 - 먹지 않을시 미 기입</li></ul>
-                <ol>   (3끼는 꼭꼭 챙겨먹기를 권장합니다 ^^)</ol>
+                <ol>(3끼는 챙겨먹기를 권장합니다 )</ol>
             </div>
             <form>
                 <p id ="brf_text">아침 : </p>
-                <p><input type ="text" id = "brf-CBox" placeholder="걸리는 시간" maxlength="5"></p>
-                <p><input type ="text" id = "brf-PBox" placeholder="선호하는 시간" maxlength="5"></p>
+                <p><input type ="text" id = "brf-CBox" placeholder="식사시작 시간" maxlength="5"></p>
+                <p><input type ="text" id = "brf-PBox" placeholder="식사종료 시간" maxlength="5"></p>
                 <p><input type = "button" id = "brf-Submit" value = "추가"></p>
             </form>
             <form>
                 <p id ="lun_text">점심 : </p>
-                <p><input type ="text" id = "lun-CBox" placeholder="걸리는 시간" maxlength="5"></p>
-                <p><input type ="text" id = "lun-PBox" placeholder="선호하는 시간" maxlength="5"></p>
+                <p><input type ="text" id = "lun-CBox" placeholder="식사시작 시간" maxlength="5"></p>
+                <p><input type ="text" id = "lun-PBox" placeholder="식사종료 시간" maxlength="5"></p>
                 <p><input type = "button" id = "lun-Submit" value = "추가"></p>
          </form>
             <form>
                 <p id ="din_text">저녁 : </p>
-                <p><input type ="text" id = "din-CBox" placeholder="걸리는 시간" maxlength="5"></p>
-                <p><input type ="text" id = "din-PBox" placeholder="선호하는 시간" maxlength="5"></p>
+                <p><input type ="text" id = "din-CBox" placeholder="식사시작 시간" maxlength="5"></p>
+                <p><input type ="text" id = "din-PBox" placeholder="식사종료 시간" maxlength="5"></p>
                 <p><input type = "button" id = "din-Submit" value = "추가"></p>
             </form>
         </div>
     </div>
+    <p><input type = "button" id = "lets" value = "계획 짜기" ></p>
+</div>
+<div id = "loading" draggable="false">
+    <img id = "load_image" src = "image/LoadingImg.gif"/>
+    <p id = load_text>Loading...</p>
 </div>
 <script src="./todo_list.js"></script>
 </body>
