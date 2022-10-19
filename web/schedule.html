@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>계획표 대신 짜기</title>
     <style>
-        #todo_tit{display: inline-block; font-size: 20px; margin-left: 250px}.To-do{display: inline-block; position: absolute; border: solid #0a0a0a;  font-size: 18px; width: 550px; height: 600px; max-height: none; margin-left: 175px; margin-bottom: 100px; overflow: auto;}#del_bt{display: inline-block; position: absolute; margin-left: 470px; top: 5%}.to_text{display: inline-block; position: absolute; width: 550px; height: 600px; border: solid #0a0a0a; margin-left: 800px; margin-bottom: 100px;}
+        #todo_tit{display: inline-block; font-size: 20px; margin-left: 250px}.To-do{display: inline-block; position: absolute; border: solid #0a0a0a;  font-size: 18px; width: 550px; height: 600px; max-height: none; margin-left: 175px; margin-bottom: 100px; overflow: auto;}#del_bt{display: inline-block; position: absolute; margin-left: 470px; top: 5px}.to_text{display: inline-block; position: absolute; width: 550px; height: 600px; border: solid #0a0a0a; margin-left: 800px; margin-bottom: 100px;}
         #To_DBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 30px} #To_CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 150px;}#TOSubmit{position: absolute; width: 50px; height: 25px; margin-left: 400px}
         #emp-clock{font-size: 20px; font-weight: bolder;}#To_PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 270px;}  #slp-clock{font-size: 20px; font-weight: bolder; margin-top: 100px}.eat-clock{font-size: 20px; font-weight: bolder; margin-left: 50px; margin-top: 100px}
         #slp-CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 30px}#slp-Submit{position: absolute; width: 50px; height: 25px; margin-left: 280px;}#slp-PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 150px;}
@@ -13,7 +13,7 @@
         #din-CBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 5px; margin-top: 80px}#din-Submit{position: absolute; width: 50px; height: 25px; margin-left: 250px; margin-top: 80px}#din-PBox{display: inline-block; position: absolute; width: 100px; height:20px; resize: none; margin-left: 125px; margin-top: 80px}
         #brf_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 155px}#lun_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 115px}#din_text{display: inline-block; position: absolute; font-size: 16px;  left: 10px; bottom: 75px}#eat_Text{margin-left: -50px;}#slp-gur{margin-left: 375px}
         #lets{display: inline-block; background-color: #c0f7df; position: absolute; width: 1000px; height: 30px; margin-top: 650px; margin-left: 265px; text-align: center;}.S{opacity: 1; transition-duration: 1s; transition-property: opacity;}#loading{height: 600px;}#load_image{height: 300pt; width: 300pt; margin-left: 560px;}#load_text{position: absolute; font-weight: bold; font-size: 24px; margin-left: 710px}
-        #sort_sp{position: absolute; margin-left: 430px}#list{margin-top: 70px;}
+        #sort_sp{position: absolute; margin-left: 430px; top: 40px}#sort_pri{position: absolute; margin-left: 405px; top: 70px}#list{margin-top: 70px;}
     </style>
 </head>
 <body>
@@ -23,6 +23,7 @@
         <h2 id = "todo_tit">일정표</h2>
         <p><input type = "button" id = "del_bt"  value = "모두 삭제" ></p>
         <p><input type = "button" id = "sort_sp" value="시간순으로 정렬"></p>
+        <p><input type = "button" id = "sort_pri" value="우선순위순으로 정렬"></p>
         <ul id = "list">
             <!-- <li>부분은 나중에 자바스크립트로 입력값 받아내기 -- 성공!! -->
 
