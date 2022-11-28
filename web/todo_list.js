@@ -6,7 +6,8 @@ const con_BT  = document.getElementById('lets');
 const reg_clock = /^([0-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/; //시간형식
 const del = [1];
 const priority = [1];
-let time = [{do_text : "do", start: 1, end: 1 , prior:"1"}];
+let time = [{do_text : "do", start: 1, end: 1 , prior:1}];
+let save_time = time;
 const min = ["00","01","02","03","04","05","06","07","08","09"];
 priority.splice(0,1);
 del.splice(0,1);
@@ -30,7 +31,7 @@ ToS.addEventListener('click', function (){
             const ul = document.getElementById('list');
             const items = ul.getElementsByTagName('li');
             for(i = 0; i<items.length; i++){
-                time[i].prior = get_op(items[i]);
+                time[i].prior = parseInt(get_op(items[i]));
                 cr_sel(items,i);
             }
             //출력했으니 비워주기
@@ -82,7 +83,7 @@ slp.addEventListener('click', function (){
         const ul = document.getElementById('list');
         const items = ul.getElementsByTagName('li');
         for(i = 0; i<items.length; i++){
-            time[i].prior = get_op(items[i]);
+            time[i].prior = parseInt(get_op(items[i]));
             cr_sel(items,i);
         }
         //출력했으니 비워주기
@@ -125,7 +126,7 @@ brf.addEventListener('click', function (){
         const ul = document.getElementById('list');
         const items = ul.getElementsByTagName('li');
         for(i = 0; i<items.length; i++){
-            time[i].prior = get_op(items[i]);
+            time[i].prior = parseInt(get_op(items[i]));
             cr_sel(items,i);
         }
         //출력했으니 비워주기
@@ -168,7 +169,7 @@ lun.addEventListener('click', function (){
         const ul = document.getElementById('list');
         const items = ul.getElementsByTagName('li');
         for(i = 0; i<items.length; i++){
-            time[i].prior = get_op(items[i]);
+            time[i].prior = parseInt(get_op(items[i]));
             cr_sel(items,i);
         }
         //출력했으니 비워주기
@@ -211,7 +212,7 @@ din.addEventListener('click', function (){
             const items = ul.getElementsByTagName('li');
             for (i = 0; i < items.length; i++) {
                 if (time[i].prior === priority[i])
-                    time[i].prior = get_op(items[i]);
+                    time[i].prior = parseInt(get_op(items[i]));
                 cr_sel(items, i);
             }
             //출력했으니 비워주기
@@ -264,18 +265,23 @@ function add(do_text,start,end){
         const ul = document.getElementById('list');
         const items = ul.getElementsByTagName('li');
         for(i = 0; i<items.length; i++){
-            time[i].prior = get_op(items[i]);
-            while(time[i].prior > priority.length-1)
-                time[i].prior -= 1;
-            cr_sel(items,i);
+            time[i].prior = parseInt(get_op(items[i]));
         }
-        priority.splice(priority.length-1,1);
         if(items.length > 0)
         {
             items[del.indexOf(num)].remove();
             del.splice(del.indexOf(num),1);
             time.splice(del.indexOf(num),1);
             size--;
+            if(size < priority.length) {
+                priority.splice(priority.length - 1, 1);
+            }
+            for(i = 0; i<items.length; i++){
+                while(time[i].prior > priority[priority.length-1]) {//우선순위가 현재 존재하는 일의 수를 넘으면 없애주기
+                    time[i].prior -= 1;
+                }
+                cr_sel(items,i);
+            }
         }
         else
             alert("error");
@@ -297,8 +303,9 @@ function save(do_text,start,end) {
     else
         tot = ( (23-parseInt(t[0])) * 60 + (60 - parseInt(t[1])) + (parseInt(p[0]) * 60 + parseInt(p[1])) );
      */
-    priority.push(size+1);
-    time.push({do_text : do_text, start: parseInt(t[0]) * 60 + parseInt(t[1]), end: parseInt(p[0])*60 + parseInt(p[1]), prior: priority[priority.length-1].toString()});
+    if(size+1 <= 4)
+        priority.push(size+1);
+    time.push({do_text : do_text, start: parseInt(t[0]) * 60 + parseInt(t[1]), end: parseInt(p[0])*60 + parseInt(p[1]), prior: priority[priority.length-1]});
     var t_len = time.length-1;
     if(time[t_len].start < time[t_len].end)
         total += time[t_len].end - time[t_len].start;
@@ -330,74 +337,56 @@ function del_all() {
 
 //정렬버튼
 const sp = document.getElementById('sort_sp');
-sp.addEventListener('click',Sort_by_T);
-function Sort_by_T(){
+sp.addEventListener('click',function () {
+    Sort_by_T(time);
+    del_all();
+    re_load();
+});
+function Sort_by_T(time){
     const ul = document.getElementById('list');
     const items = ul.getElementsByTagName('li');
     for(i = 0; i<items.length; i++)
-        time[i].prior = get_op(items[i]);
+        time[i].prior = parseInt(get_op(items[i]));
     time.sort(function (a,b) {
-        const sort = "start";
+        const start = "start";
         const end = "end";
-        if(a[sort] > b[sort] && a[end] < a[sort] )
-            return b[sort]-a[sort];
-        else {
-            if (a[sort] === b[sort]) {
-                return a[end] - b[end];
-            }
-            else if(b[end] < b[sort]){
-                return b[sort] - a[sort];
-            }
-            else{
-                return a[sort] - b[sort];
-            }
-
-        }
+       if(a[start] === b[start])
+           return a[end] - b[end];
+       else {
+           return a[start] - b[start];
+       }
     });
-    del_all();
-    re_load();
 }
 //
 
 //우선순위 순으로 정렬
 const pri_BT = document.getElementById('sort_pri');
-pri_BT.addEventListener('click',Sort_by_Pri);
-function Sort_by_Pri(){
+pri_BT.addEventListener('click',function () {
+    Sort_by_Pri(time);
+    del_all();
+    re_load();
+});
+function Sort_by_Pri(time){
     const ul = document.getElementById('list');
     const items = ul.getElementsByTagName('li');
     for(i = 0; i<items.length; i++)
-        time[i].prior = get_op(items[i]);
+        time[i].prior = parseInt(get_op(items[i]));
     time.sort(function (a,b) {
-        const sort = "prior";
-        const e = "start";
+        const prior = "prior";
+        const start = "start";
         const end = "end";
-        if(a[sort] === b[sort]){
-            return a[e]-b[e];
-        }
-        else{
-
-            if(a[sort] >= b[sort] && a[end] <= a[sort] && a[end] <= b[e])
-                return b[sort]-a[sort];
-            else {
-                if(a[sort] > b[sort] && a[end] < a[sort] )
-                    return b[sort]-a[sort];
-                else {
-                    if (a[sort] === b[sort]) {
-                        return a[end] - b[end];
-                    }
-                    else if(b[end] < b[sort]){
-                        return b[sort] - a[sort];
-                    }
-                    else{
-                        return a[sort] - b[sort];
-                    }
-
-                }
+        if(a[prior] === b[prior])
+        {
+            if(a[start] === b[start]) //시작시간이 같으면
+                return a[end] - b[end]; // 끝나는 시간이 더 빠른걸로
+            else { //같지않으면
+                return a[start] - b[start]; // 시작시간이 더 빠른걸ㄹ
             }
         }
+        else {
+            return a[prior]-b[prior];
+        }
     });
-    del_all();
-    re_load();
 }
 //
 
@@ -418,8 +407,7 @@ function re_load() {
         else
             end += (time[i].end % 60).toString();
         add(do_text, start, end);
-        if(time[i].prior === priority[i])
-            time[i].prior = get_op(items[i]);
+
         cr_sel(items,i);
     }
 }
@@ -453,7 +441,7 @@ function cr_sel(items,i) {
     var val = time[i].prior;
     sel[0].remove();
     var ect = document.createElement('select');
-    ect.style.position = 'fixed'; ect.style.display = 'inline-block'; ect.style.left = '200px';
+    ect.style.position = 'absolute'; ect.style.display = 'inline-block'; ect.style.left = '13px';
     for(j = 0; j<priority.length; j++)
     {
         const pri_op = new Option();
@@ -463,7 +451,7 @@ function cr_sel(items,i) {
     var elen = ect.options.length;
     for(j = 0; j<elen; j++)
     {
-        if(val === ect.options[j].value) {
+        if(val.toString() === ect.options[j].value) {
             ect.options[j].selected = true;
             break;
         }
@@ -477,96 +465,82 @@ function cr_sel(items,i) {
 con_BT.addEventListener('click', function () {
     const tot = document.getElementsByClassName('S');
     const all_in = document.getElementsByTagName('input');
-    const ul = document.getElementById('list');
-    const items = ul.getElementsByTagName('li');
     for(i = 0; i<tot.length; i++) {tot[i].style.opacity = '0.05';}
     for(j = 0; j<all_in.length; j++) {all_in[j].disabled = true;}
     document.getElementById('loading').style.visibility = "visible";
-    for(var i = 0; i<items.length; i++)
-        time[i].prior = get_op(items[i]);
-    //시작시간 기준으로 일단 정렬
-    time.sort(function (a,b) {
-        const sort = "start";
-        const end = "end";
-        if(a[sort] >= b[sort] && a[end] <= a[sort] && a[end] <= b[sort])
-            return b[sort]-a[sort];
-        else {
-            if(a[sort] > b[sort] && a[end] < a[sort] )
-                return b[sort]-a[sort];
-            else
-            {
-                if (a[sort] === b[sort])
-                    return a[end] - b[end];
-                else if(b[end] < b[sort])
-                    return b[sort] - a[sort];
-                else
-                    return a[sort] - b[sort];
+    save_time = time; // 백업
 
-            }
-        }
-    });
     if(total > 1440)//모든 일정의 합이 하루를 초과
     {
-        let ov_time = [{do_text : "do", start: 1, end: 1 , prior:"1"}];
+        Sort_by_Pri(time);
+        let ov_time = [];
+        let pri_t = [0,0,0,0,0];
+        ov_time.fill({do_text : "dnf", start: -1, end: -1 , prior:"0"});
         ov_time.splice(0,1);
         total = 0;
-        //정렬된 일정중 우선순위가 높은 순서대로 먼저 넣기
-        for(var i = 0; i<time.length; i++)
+        //우선순위가 높은 순서대로 먼저 넣기
+        var pri = 1;
+        var t = 0;
+        for(i = 0; i<time.length; i++)
         {
-            if(time[i].prior === i){
-                var ov_len = ov_time.length;
-                if(ov_len === 0) {
-                    ov_time.push(time[i].do_text, time[i].start, time[i].end, time[i].prior);
-                    if(time[i].start < time[i].end)
-                        total += time[i].end - time[i].start;
-                    else
-                        total += 1440 - time[i].start + time[i].end;
+            if(pri === time[i].prior) {
+                ov_time.fill({do_text: time[i].do_text, start: time[i].start, end: time[i].end, prior: time[i].prior});
+                pri_t[pri]++;
+                if (time[i].start < time[i].end)
+                    t += time[i].end - time[i].start;
+                else
+                    t += 1440 - time[i].start + time[i].end;
+            }
+            //우선순위가 pri 인 것을 다 넣었을때
+            else if(pri_t[pri-1] === pri_t[pri]) {
+                if(pri < 4)
+                    pri_t[pri+1] = pri_t[pri];
+            }
+            else{
+                t=0;
+                if(pri < 4)
+                    pri_t[pri+1] = pri_t[pri];
+                var cut = 0;
+                var c = ov_time.length-pri_t[pri-1];
+                while(t-(cut*c) > 1440){
+                    cut++;
                 }
-                else {
-                    for (var j = 0; j < ov_len - 1; j++) {
-                        if (ov_len !== 1) { // 비교대상이 두개 존재하면
-                            if(ov_time[j].start < ov_time[j].end) //저장된 시간이 00:00~23:59형식
-                            {
-                                if(time[i].start < time[i].end) //저장할 시간이 00:00~23:59
-                                {
-                                    if(time[i].start > ov_time[j].start && time[i].end < ov_time[j+1].end) {
-                                        if (time[i].start < ov_time[j].end) {
-                                            var cha =
-                                        }
-                                        else{
-
-                                        }
-                                    }
-                                }
-                                else // ex)저장할 시간이 23:59 ~ 00:30
-                                {
-
-                                }
-                            }
-                            else //저장할 시간이 ex) 23:59 ~ 00:30
-                            {
-                                if(time[i].start < time[i].end) //저장된 시간이  00:00~23:59
-                                {
-
-                                }
-                                else //저장할 시간이 ex) 23:59 ~ 00:30
-                                {
-
-                                }
-                            }
-                            break;
-                        }
-                        else{
-                            ov_time.push(time[i].do_text, time[i].start, time[i].end, time[i].prior);
-                            break;
+                t -= cut*c;
+                if(cut > 0)
+                    for (var j = 0; j < ov_time.length; j++) {
+                        if (pri === i) {
+                            ov_time[i].end -= cut;
+                            if(ov_time[i].end < 0)
+                                ov_time[i].end = 1440 + ov_time[i].end;
                         }
                     }
+                Sort_by_T(ov_time);
+                // 같은 우선순위끼리 겹칠때는 더 먼저 시작되는걸로 - 시작시간도 같을시 -> 끝나는시간이 더 느린걸로
+                //우선순위 1 가능한 정해둔 시간대로, 무조건 일정 추가
+                if(pri === 1)
+                {
+
+                }
+                //우선순위 2 = 1과 겹치지 않는 선에서 시간 보장
+                //우선순위 3 = 1,2와 겹치지 않는 선에서 시간 보장 .....
+                else {
+                        for(var j = 0; j<ov_time.length-1; j++) {
+                            if(ov_time[j].end > ov_time[j+1].start && ov_time[j].start !== ov_time[j+1].start){
+                                var cha = ov_time[j].end - ov_time[j+1].start;
+                                ov_time[j].end = ov_time[j+1].start;
+                                t -= cha;
+                            }
+                            else if(ov_time[j].start === ov_time[j+1].start){
+                                ov_time[j].prior = -1;
+                            }
+                        }
                 }
             }
         }
     }
     else { // 초과하지 않음
         for(i = 0; i<time.length-1; i++) {
+            Sort_by_T(time);
             var cha = time[i].end - time[i+1].start;
             time[i + 1].start += cha; //일정 재구성
             time[i + 1].end += cha;
