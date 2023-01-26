@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon></icon>
+  <icon>C:\Users\a\Documents\Projects\exe\Icon.ico</icon>
   <classPath>
     <mainClass>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</mainClass>
     <cp>.</cp>
