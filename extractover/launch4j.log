@@ -1,0 +1,20 @@
+
+
+Version:	3.50
+CmdLine:	C:\Users\a\Documents\Projects\extract over\초과 계산기.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\a\Documents\Projects\extract over\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.008.000
+Java max ver:	
+JRE paths:	jre
+Check launcher:	C:\Users\a\Documents\Projects\extract over\jre\bin\javaw.exe (OK)
+Version string: 1.008.000_351 / 64-Bit (OK)
+Main class:	org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+Add classpath:	.
+Launcher:	C:\Users\a\Documents\Projects\extract over\jre\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\a\Documents\Projects\extract over\초과 계산기.exe;." org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+Args length:	127/32768 chars
+Exit code:	0
