@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\a\Documents\Projects\extract over\extract over.jar</jar>
-  <outfile>C:\Users\a\Documents\Projects\extract over\초과 계산기.exe</outfile>
+  <jar>C:\Users\a\Documents\Projects\extractover\extractoverday.jar</jar>
+  <outfile>C:\Users\a\Documents\Projects\extractover\신상변동용 초과 계산기.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -11,9 +11,9 @@
   <downloadUrl></downloadUrl>
   <supportUrl></supportUrl>
   <stayAlive>false</stayAlive>
-  <restartOnCrash>true</restartOnCrash>
+  <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\a\Documents\Projects\extract over\Icon.ico</icon>
+  <icon>C:\Users\a\Documents\Projects\extractover\Iconday.ico</icon>
   <classPath>
     <mainClass>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</mainClass>
     <cp>.</cp>
