@@ -148,3 +148,28 @@ Launcher:	C:\Program Files\Java\jre1.8.0_351\bin\javaw.exe
 Launcher args:	-classpath "C:\Users\a\Documents\Projects\extractover\새 폴더\출근부용 초과 계산기.exe;." org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
 Args length:	143/32768 chars
 Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\a\Documents\Projects\extractover\새 폴더\출근부용 초과 계산기.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\a\Documents\Projects\extractover\새 폴더\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.008.000
+Java max ver:	
+JRE paths:	jre
+Check launcher:	C:\Users\a\Documents\Projects\extractover\새 폴더\jre\bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Version string: 1.008.000 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jre1.8.0_351\bin\javaw.exe (OK)
+Match:		1.008.000
+Runtime used:	1.008.000 (64-bit)
+Main class:	org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+Add classpath:	.
+Launcher:	C:\Program Files\Java\jre1.8.0_351\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\a\Documents\Projects\extractover\새 폴더\출근부용 초과 계산기.exe;." org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+Args length:	143/32768 chars
+Exit code:	0
