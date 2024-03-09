@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/*상단 바*/
+header {
+    background-color: #333;
+    color: #fff;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+}
+
+/*로고가 좌측 상단에 위치하도록 조정*/
+#home_logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+/*선택자를 이용해 로고의 크기 조정*/
+#home_logo > img {
+    width: 100px;
+    height: 100px;
+}
+
+/*로그인 버튼*/
+.user-menu button {
+    width: 80px;
+    height: 30px;
+    margin: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/*배너 위치 조정*/
+#banner_margin{
+    height: 100%;
+    width: 800px;
+    background-color: beige;
+    margin: 0 auto;
+}
+
+/*배너의 길이 조정*/
+#banner {
+    height: 200px;
+}
+
+/*배너이미지가 만든 크기에 맞도록 조정*/
+#banner > img {
+    width: 100%;
+}
+
+/*할인하는 상품을 표시하는 바*/
+article{
+    background-color: beige;
+    margin: 0 auto;
+}
+
+/*상품을 article태그에 넣기위한 바*/
+#product_list{
+    display: flex;
+}
+
+/*상품 태그*/
+.product {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 10px;
+    float: left; /*상품 가로 정렬*/
+}
+
+/*상품 이미지*/
+.product img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/*상품 이름*/
+.product h2 {
+    margin-top: 0;
+}
+
+/*장바구니 버튼*/
+.product button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*버튼이 눌릴 시 색 변화*/
+.product button:hover {
+    background-color: #45a049;
+}
